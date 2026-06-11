@@ -59,7 +59,7 @@ public class RockPaperScissorsGame : MonoBehaviour
     {
         
     }
-    //these public void ChooseName are for UI Button assignment
+    //these public void ChooseName are for UI Button assignment, instead of casting or converting, i created a public method for each choice value that I could assign to the Unity Inspector OnClick() function
     public void ChooseRock()
     {
         PlayGame(Choice.Rock);
@@ -86,7 +86,8 @@ public class RockPaperScissorsGame : MonoBehaviour
     }
 
 
-    //defines the player choice and runs the game mechanic through debug.log and assigns the appropriate win/loss/tie message based off the following bool
+    // this section takes the player choice and compares it to the computer's choice, if they're the same, it sends the tie message to the console,
+    // if else it checks the PlayerWins bool and if true it sends the Win message to the console, if false it sends the Lose message to console
     void PlayGame(Choice playerChoice)
     {
         Debug.Log("You Chose: " + playerChoice + "!");
@@ -141,7 +142,7 @@ public class RockPaperScissorsGame : MonoBehaviour
 
         else
         {
-            return false;
+            return false; 
         }
 
 
