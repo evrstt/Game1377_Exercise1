@@ -35,26 +35,120 @@ using UnityEngine;
 
 public class RockPaperScissorsGame : MonoBehaviour
 {
-    private string[] choices = { "rock", "paper", "scissors" };
+   //enum Declaration, this is to assign a number to each Choice the player or Computer can make
 
-    public void RockPaperScissors(string playerChoice)
+   public enum Choice
     {
-        Debug.Log("You chose: " + playerChoice);
-        
-        string computerChoice = choices[0];
-        Debug.Log("Computer chose: " + computerChoice);
+        Rock,           // value = 0
+        Paper,          // value = 1
+        Scissors,       // value = 2
+        Lizard,         // value = 3
+        Spock           // value = 4
+    }
+   
+   
+   void Start() //I added back in Start and Update because one, I was more comfortable writing it with these already in there, and two, I added a Game start message
+    {
+        //Start Message to Player via debug console
 
-        if (playerChoice == "rock")
+        Debug.Log("The Game as started!");
+        Debug.Log("Pick your move! Click on Rock, Paper, Scissors, Lizard, or Spock to Play the Game!");
+    }
+
+    void Update()
+    {
+        
+    }
+    //these public void ChooseName are for UI Button assignment
+    public void ChooseRock()
+    {
+        PlayGame(Choice.Rock);
+    }
+
+    public void ChoosePaper()
+    {
+        PlayGame(Choice.Paper);
+    }
+
+    public void ChooseScissors()
+    {
+        PlayGame(Choice.Scissors);
+    }
+
+    public void ChooseLizard()
+    {
+        PlayGame(Choice.Lizard);
+    }
+
+    public void ChooseSpock()
+    {
+        PlayGame(Choice.Spock);
+    }
+
+
+    //defines the player choice and runs the game mechanic through debug.log and assigns the appropriate win/loss/tie message based off the following bool
+    void PlayGame(Choice playerChoice)
+    {
+        Debug.Log("You Chose: " + playerChoice + "!");
+
+        Choice computerChoice = (Choice)Random.Range(0,5);
+
+        Debug.Log("Computer Chose: " + computerChoice);
+
+        if (playerChoice == computerChoice)
         {
-            Debug.Log("It's a tie! Both chose " + playerChoice);
+            Debug.Log("It's a tie! Both chose " + playerChoice + "!");
         }
-        else if (playerChoice == "paper")
+        
+        else if(PlayerWins(playerChoice, computerChoice))
         {
             Debug.Log("You win! " + playerChoice + " beats " + computerChoice);
         }
+
         else
         {
-            Debug.Log("You lose! " + computerChoice + " beats " + playerChoice);
+            Debug.Log("You Lose! " + playerChoice + " does NOT beat " + computerChoice);
         }
     }
+
+    //this bool is true for all player win states and if none of the values are met, changes the bool to false
+    bool PlayerWins(Choice playerChoice, Choice computerChoice)
+    {
+        if (playerChoice == Choice.Rock)
+        {
+            return computerChoice == Choice.Scissors || computerChoice == Choice.Lizard;
+        }
+
+        else if (playerChoice == Choice.Paper)
+        {
+            return computerChoice == Choice.Rock || computerChoice == Choice.Spock;
+        }
+        
+        else if (playerChoice == Choice.Scissors)
+        {
+            return computerChoice == Choice.Paper || computerChoice == Choice.Lizard;
+        }
+        
+        else if (playerChoice == Choice.Lizard)
+        {
+            return computerChoice == Choice.Paper || computerChoice == Choice.Spock;
+        }
+        
+        else if (playerChoice == Choice.Spock)
+        {
+            return computerChoice == Choice.Scissors || computerChoice == Choice.Rock;
+        }
+
+        else
+        {
+            return false;
+        }
+
+
+
+
+        
+    }
+
+
 }
